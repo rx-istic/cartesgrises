@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<jdbc:embedded-database id="dataSource"/>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="entityManagerFactory" ref="emFactory"/>
+	</bean>
+	
+	<context:annotation-config/>
+	
+	<tx:annotation-driven/>
+	
+	<bean id="emFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="cg"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+		</property>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>	
+	<bean id="cDAO" class="fr.istic.cg.donnees.CarteGriseDAO"></bean>
+	<bean id="eDAO" class="fr.istic.cg.donnees.ElementHistoriqueDAO"></bean>
+	<bean id="sDAO" class="fr.istic.cg.donnees.SocieteDAO"></bean>
+	<bean id="vDAO" class="fr.istic.cg.donnees.VehiculeDAO"></bean>
+	<bean id="pDAO" class="fr.istic.cg.donnees.ParticulierDAO"></bean>
+	
+	<bean id="c" class="fr.istic.cg.metier.Creation"></bean>
+	<bean id="rec" class="fr.istic.cg.metier.Recherche"></bean>
+	
+<!-- 	<property name="cDAO"> <ref bean="cDAO"/></property>
+	<property name="eDAO"> <ref bean="eDAO"/></property>
+	<property name="sDAO"> <ref bean="sDAO"/></property>
+	<property name="vDAO"> <ref bean="vDAO"/></property>
+	<property name="pDAO"> <ref bean="pDAO"/></property> -->
+	
+	
+</beans>

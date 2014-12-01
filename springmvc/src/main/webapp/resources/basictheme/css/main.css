@@ -1,0 +1,8 @@
+table tr:nth-child(2n+1)
+{
+    background-color: #f0f0f0;
+}
+table tr:nth-child(3n+2)
+{
+    font-weight: bold;
+}
