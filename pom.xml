@@ -8,7 +8,6 @@
 	<name>cartesGrises</name>
 	<description>Système de gestion de cartes grises (Projet GLA)</description>
 	<modules>
-		<module>presentation</module>
 		<module>metier</module>
 		<module>donnees</module>
 		<module>persistance</module>
