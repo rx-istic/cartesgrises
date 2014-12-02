@@ -97,7 +97,8 @@ public class VehiculeController {
 	public ModelAndView addVehicule(@ModelAttribute("vehiculemodel")Vehicule vehicule, 
 			ModelMap model) {
 
-		c.vehicule(vehicule);
+		c.vehicule(vehicule);//on enregistre le véhicule
+		
 		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
 		myModel.addObject("ns", vehicule.getNumSerie());
 		return myModel;
