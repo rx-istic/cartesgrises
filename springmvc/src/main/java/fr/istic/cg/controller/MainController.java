@@ -19,6 +19,7 @@ public class MainController {
 		
 		mylinks.add("/cherchervehicules");
 		mylinks.add("/formulairevehicule");
+		mylinks.add("/cherchersociete");
 		
 		
 		ModelAndView myModel = new ModelAndView("index");

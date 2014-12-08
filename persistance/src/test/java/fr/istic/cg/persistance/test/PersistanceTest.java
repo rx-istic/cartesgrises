@@ -1,16 +1,15 @@
 package fr.istic.cg.persistance.test;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class PersistanceTest {
 
-	
+	/*
 	@Before
 	public void setup(){
 		//bouchonCGDAO = Mockito.mock(CarteGriseDAO.class);
 		//composantATester = new Recherche(bouchonCGDAO);
-	}
+	}*/
 	
 	@Test
 	public void testChercher(){
