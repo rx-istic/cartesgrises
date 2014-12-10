@@ -10,7 +10,6 @@
 <body>
 
 <h2>Vehicules</h2>
-<%-- <form:form method="POST" action="/listVehicules" modelAttribute="cartegrisemodel"> --%>
    <table>
     <tr>
         <th>NumSerie</th>

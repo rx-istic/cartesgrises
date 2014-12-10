@@ -1,5 +1,7 @@
 package fr.istic.cg.donnees;
 
+import java.util.List;
+
 
 public interface  BaseDAO<T> {
 	
@@ -8,4 +10,6 @@ public interface  BaseDAO<T> {
 	public T get(String identifiant);
 	//public Collection<T> query(Criteres criteres); //TODO ??? a revoir
 	public boolean delete(T cg);
+	
+	public List<T> search(Criteres<T> myCriteres);
 }

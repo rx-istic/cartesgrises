@@ -1,5 +1,7 @@
 package fr.istic.cg.donnees;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -43,6 +45,11 @@ public class ParticulierDAO implements  BaseDAO<Particulier> {
 	public boolean delete(Particulier p) {
 		em.detach(p);
 		return true;
+	}
+
+	public List<Particulier> search(Criteres<Particulier> myCriteres) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import fr.istic.cg.persistance.Proprietaire;
 
 @Deprecated
-public class ProprietaireDAO implements  BaseDAO<Proprietaire> {
+public abstract class ProprietaireDAO implements  BaseDAO<Proprietaire> {
 	
 	@PersistenceContext
     private EntityManager em;

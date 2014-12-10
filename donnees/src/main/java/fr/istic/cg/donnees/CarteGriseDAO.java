@@ -1,5 +1,7 @@
 package fr.istic.cg.donnees;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -40,6 +42,11 @@ public class CarteGriseDAO implements BaseDAO<CarteGrise>{
 	public boolean delete(CarteGrise cg) {
 		em.detach(cg);
 		return true;
+	}
+
+	public List<CarteGrise> search(Criteres<CarteGrise> myCriteres) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

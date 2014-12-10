@@ -21,10 +21,10 @@ import fr.istic.cg.persistance.Societe;
 public class SocieteController {
 
 	@Autowired
-	Creation cste;
+	Creation c;
 	
 	@Autowired
-	Recherche recste;
+	Recherche rec;
 	
 	boolean firstRun = true;
 	
@@ -35,14 +35,14 @@ public class SocieteController {
     	aviva.setRaisonSociale("Aviva SA");
     	aviva.setNumSiret("1324");
     	
-    	cste.societe(aviva);
+    	c.societe(aviva);
     	
     	Societe total = new Societe();
     	total.setAdresse("Luxembourg");
     	total.setRaisonSociale("TOTAL SA");
     	total.setNumSiret("852147");
     	
-    	cste.societe(total);
+    	c.societe(total);
     	
 
 	}
@@ -55,7 +55,7 @@ public class SocieteController {
 									ModelMap model) {
 		if(firstRun){
 			firstRun = false;
-			//populate();	
+			populate();	
 		}
 
 		CriteresSociete crtSte = new CriteresSociete();
@@ -69,7 +69,7 @@ public class SocieteController {
 			crtSte.addCritere(CriteresSociete.NUMSIRET_CLE, srt);
 		}
 		
-		List<Societe> mySociete = recste.chercherSociete(crtSte);
+		List<Societe> mySociete = rec.chercherSociete(crtSte);
 		ModelAndView myModel = new ModelAndView("listeSocietes");
 		
 		myModel.addObject("societes", mySociete);

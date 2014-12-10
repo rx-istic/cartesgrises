@@ -1,5 +1,7 @@
 package fr.istic.cg.donnees;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -42,6 +44,11 @@ public class ElementHistoriqueDAO implements BaseDAO<ElementHistorique> {
 	public boolean delete(ElementHistorique e) {
 		em.detach(e);
 		return true;
+	}
+
+	public List<ElementHistorique> search(Criteres<ElementHistorique> myCriteres) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

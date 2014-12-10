@@ -54,7 +54,7 @@ public class SocieteDAO implements  BaseDAO<Societe> {
 	
 	
 	@Transactional
-	public List<Societe> search(CriteresSociete myCriteres) {
+	public List<Societe> search(Criteres<Societe> myCriteres) {
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 

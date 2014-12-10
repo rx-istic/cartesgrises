@@ -55,7 +55,7 @@ public class VehiculeDAO implements BaseDAO<Vehicule> {
 	}
 
 	@Transactional
-	public List<Vehicule> search(CriteresVehicule myCriteres) {
+	public List<Vehicule> search(Criteres<Vehicule> myCriteres) {
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 
