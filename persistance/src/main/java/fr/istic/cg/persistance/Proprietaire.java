@@ -1,6 +1,7 @@
 package fr.istic.cg.persistance;
 
 import javax.persistence.Basic;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,8 +9,12 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-//@Inheritance(strategy=InheritanceType.JOINED)
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name="TYPE_P"//,
+        //discriminatorType=DiscriminatorType.INTEGER,
+        //columnDefinition="NUMBER(2)"
+        )
 public abstract class Proprietaire {
 
 	@Id

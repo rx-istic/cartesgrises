@@ -1,6 +1,7 @@
 package fr.istic.cg.persistance;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
@@ -10,6 +11,7 @@ public class Societe extends Proprietaire {
 	private String raisonSociale;
 	
 	@Basic
+	@Column(unique = true)
 	private String numSiret;
 	
 	public String getRaisonSociale() {
