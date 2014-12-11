@@ -62,7 +62,9 @@
 	<bean id="pDAO" class="fr.istic.cg.donnees.ParticulierDAO"></bean>
 	
 	<bean id="c" class="fr.istic.cg.metier.Creation"></bean>
+	<bean id="modif" class="fr.istic.cg.metier.Modification"></bean>
 	<bean id="rec" class="fr.istic.cg.metier.Recherche"></bean>
+	<bean id="suppr" class="fr.istic.cg.metier.Suppression"></bean>
 	
 	
 	<context:component-scan base-package="com.mkyong.common.controller" />

@@ -50,7 +50,7 @@ public class VehiculeDAO implements BaseDAO<Vehicule> {
 
 	@Transactional
 	public boolean delete(Vehicule v) {
-		em.detach(v);
+		em.remove(em.find(Vehicule.class, v.getNumSerie()));
 		return true;
 	}
 

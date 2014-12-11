@@ -43,7 +43,7 @@ public class ParticulierDAO implements  BaseDAO<Particulier> {
 
 	@Transactional
 	public boolean delete(Particulier p) {
-		em.detach(p);
+		em.remove(em.find(Particulier.class,p.getId()));
 		return true;
 	}
 

@@ -18,7 +18,9 @@ public class MainController {
 		List<String> mylinks = new ArrayList<String>();
 		
 		mylinks.add("/cherchervehicules");
-		mylinks.add("/formulairevehicule");
+		mylinks.add("/creervehicule");
+		//mylinks.add("/editervehicule");
+		
 		mylinks.add("/cherchersociete");
 		
 		

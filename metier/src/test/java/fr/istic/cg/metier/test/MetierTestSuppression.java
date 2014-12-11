@@ -24,7 +24,7 @@ import fr.istic.cg.persistance.Vehicule;
 
 @ContextConfiguration("/fr/istic/cg/applicationContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class MetierTest {
+public class MetierTestSuppression {
 
 	@Autowired
 	Creation c;

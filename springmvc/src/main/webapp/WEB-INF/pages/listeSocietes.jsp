@@ -10,6 +10,9 @@
 <body>
 
 <h2>Soci&eacute;tes</h2>
+
+<a href="/">Retour</a>
+
    <table>
     <tr>
         <th>ID</th>

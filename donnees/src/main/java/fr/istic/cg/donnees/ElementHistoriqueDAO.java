@@ -42,7 +42,7 @@ public class ElementHistoriqueDAO implements BaseDAO<ElementHistorique> {
 
 	@Transactional
 	public boolean delete(ElementHistorique e) {
-		em.detach(e);
+		em.remove(em.find(ElementHistorique.class, e.getId()));
 		return true;
 	}
 

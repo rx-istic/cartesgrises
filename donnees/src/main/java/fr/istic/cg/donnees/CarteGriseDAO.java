@@ -40,7 +40,7 @@ public class CarteGriseDAO implements BaseDAO<CarteGrise>{
 	}
 
 	public boolean delete(CarteGrise cg) {
-		em.detach(cg);
+		em.remove(em.find(CarteGrise.class, cg.getImmatriculation()));
 		return true;
 	}
 

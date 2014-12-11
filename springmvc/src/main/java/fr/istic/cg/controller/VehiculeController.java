@@ -15,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fr.istic.cg.donnees.CriteresVehicule;
 import fr.istic.cg.metier.Creation;
+import fr.istic.cg.metier.Modification;
 import fr.istic.cg.metier.Recherche;
+import fr.istic.cg.metier.Suppression;
 import fr.istic.cg.persistance.Vehicule;
 
 @Controller
@@ -25,7 +27,13 @@ public class VehiculeController {
 	Creation c;
 	
 	@Autowired
+	Modification modif;
+	
+	@Autowired
 	Recherche rec;
+	
+	@Autowired
+	Suppression suppr;
 	
 	boolean firstRun = true;
 	
@@ -81,19 +89,20 @@ public class VehiculeController {
 		
 		List<Vehicule> myVehicules = rec.chercherVehicule(crtVcl);
 		ModelAndView myModel = new ModelAndView("listeVehicules");
-		
+		model.addAttribute("vehiculemodel",new Vehicule());
 		myModel.addObject("vehicules", myVehicules);
 		return myModel;
 	}
 	
-	 @RequestMapping(value = "/formulairevehicule", method = RequestMethod.GET )
+	 @RequestMapping(value = "/creervehicule", method = RequestMethod.GET )
 	   public ModelAndView formulaireVehicule(ModelMap model) {
-		 ModelAndView myModel = new ModelAndView("ajouterVehicule");//nom prochain JSP
+		 ModelAndView myModel = new ModelAndView("formVehicule");//nom prochain JSP
 		   model.addAttribute("vehiculemodel",new Vehicule());
+		   myModel.addObject("action", "/creervehicule");
 	      return myModel;
 	   }
 
-	@RequestMapping(value = "/ajoutervehicule", method = RequestMethod.POST)
+	@RequestMapping(value = "/creervehicule", method = RequestMethod.POST)
 	public ModelAndView addVehicule(@ModelAttribute("vehiculemodel")Vehicule vehicule, 
 			ModelMap model) {
 
@@ -101,6 +110,36 @@ public class VehiculeController {
 		
 		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
 		myModel.addObject("ns", vehicule.getNumSerie());
+		return myModel;
+	}
+	
+	@RequestMapping(value = "/editervehicule", method = RequestMethod.POST )
+	   public ModelAndView editVehicule(@ModelAttribute("vehiculemodel")Vehicule vehicule,
+			   ModelMap model) {
+		 ModelAndView myModel = new ModelAndView("formVehicule");//nom prochain JSP
+		   model.addAttribute("vehiculemodel",vehicule);
+		   myModel.addObject("action", "/doeditvehicule");
+	      return myModel;
+	   }
+	
+	@RequestMapping(value = "/doeditvehicule", method = RequestMethod.POST)
+	public ModelAndView majVehicule(@ModelAttribute("vehiculemodel")Vehicule vehicule, 
+			ModelMap model) {
+
+		modif.vehicule(vehicule);//on met à jour le véhicule
+		
+		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
+		//myModel.addObject("ns", vehicule.getNumSerie());
+		return myModel;
+	}
+	
+	@RequestMapping(value = "/supprimervehicule", method = RequestMethod.POST)
+	public ModelAndView delVehicule(@ModelAttribute("vehiculemodel")Vehicule vehicule, 
+			ModelMap model) {
+
+		suppr.vehicule(vehicule);//on supprime le véhicule
+		
+		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
 		return myModel;
 	}
 }

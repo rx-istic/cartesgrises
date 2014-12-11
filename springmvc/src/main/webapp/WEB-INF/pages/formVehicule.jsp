@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form:form method="POST" action="/ajoutervehicule" modelAttribute="vehiculemodel">
+<form:form method="POST" action="${action}" modelAttribute="vehiculemodel">
    <table>
     <tr>
         <th><form:label path="numSerie">Num&eacute;ro de s&eacute;rie</form:label></th>

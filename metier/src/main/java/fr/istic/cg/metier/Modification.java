@@ -3,18 +3,13 @@ package fr.istic.cg.metier;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.istic.cg.donnees.BaseDAO;
-import fr.istic.cg.donnees.CarteGriseDAO;
-import fr.istic.cg.donnees.ElementHistoriqueDAO;
-import fr.istic.cg.donnees.ParticulierDAO;
-import fr.istic.cg.donnees.SocieteDAO;
-import fr.istic.cg.donnees.VehiculeDAO;
 import fr.istic.cg.persistance.CarteGrise;
 import fr.istic.cg.persistance.ElementHistorique;
 import fr.istic.cg.persistance.Particulier;
 import fr.istic.cg.persistance.Societe;
 import fr.istic.cg.persistance.Vehicule;
 
-public class Insertion {
+public class Modification {
 	
 	@Autowired
 	BaseDAO<Vehicule> vDAO ;

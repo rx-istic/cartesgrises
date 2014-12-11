@@ -48,7 +48,7 @@ public class SocieteDAO implements  BaseDAO<Societe> {
 
 	@Transactional
 	public boolean delete(Societe s) {
-		em.detach(s);
+		em.remove(em.find(Societe.class, s.getId()));
 		return true;
 	}
 	
