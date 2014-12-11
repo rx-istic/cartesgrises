@@ -98,18 +98,18 @@ public class VehiculeController {
 	   public ModelAndView formulaireVehicule(ModelMap model) {
 		 ModelAndView myModel = new ModelAndView("formVehicule");//nom prochain JSP
 		   model.addAttribute("vehiculemodel",new Vehicule());
-		   myModel.addObject("action", "/creervehicule");
+		   myModel.addObject("action", "/docreervehicule");
 	      return myModel;
 	   }
 
-	@RequestMapping(value = "/creervehicule", method = RequestMethod.POST)
+	@RequestMapping(value = "/docreervehicule", method = RequestMethod.POST)
 	public ModelAndView addVehicule(@ModelAttribute("vehiculemodel")Vehicule vehicule, 
 			ModelMap model) {
 
 		c.vehicule(vehicule);//on enregistre le véhicule
 		
 		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
-		myModel.addObject("ns", vehicule.getNumSerie());
+		//myModel.addObject("ns", vehicule.getNumSerie());
 		return myModel;
 	}
 	

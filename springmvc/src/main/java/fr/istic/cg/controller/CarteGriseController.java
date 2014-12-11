@@ -1,26 +1,10 @@
 package fr.istic.cg.controller;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import business.Student;
-import fr.istic.cg.donnees.CriteresVehicule;
-import fr.istic.cg.metier.Creation;
-import fr.istic.cg.metier.Recherche;
-import fr.istic.cg.persistance.Vehicule;
 
 @Controller
 public class CarteGriseController {
-
+/*
 	@Autowired
 	Creation c;
 	
@@ -74,5 +58,5 @@ public class CarteGriseController {
 		//TODO add here the communication with the business part
 
 		return "Not Implemented Yet";
-	}
+	}*/
 }
