@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import fr.istic.cg.persistance.Particulier;
@@ -48,8 +53,24 @@ public class ParticulierDAO implements  BaseDAO<Particulier> {
 	}
 
 	public List<Particulier> search(Criteres<Particulier> myCriteres) {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		CriteriaQuery<Particulier> q = cb.createQuery(Particulier.class);
+		Root<Particulier> root = q.from(Particulier.class);
+		
+		
+		if(myCriteres == null || myCriteres.getCount() == 0){
+			q.select(root);
+		}else{
+			List<Predicate> predicates = myCriteres.getCriteres(cb, root);
+			q.select(root).where(predicates.toArray(new Predicate[]{}));
+		}
+
+		TypedQuery<Particulier> query = em.createQuery(q);
+		
+		List<Particulier> results = query.getResultList();
+		
+		return results;
 	}
 
 }

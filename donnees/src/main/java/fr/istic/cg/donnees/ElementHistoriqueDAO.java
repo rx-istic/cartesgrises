@@ -4,8 +4,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import fr.istic.cg.persistance.ElementHistorique;
 import fr.istic.cg.persistance.ElementHistorique;
 
 public class ElementHistoriqueDAO implements BaseDAO<ElementHistorique> {
@@ -47,8 +53,24 @@ public class ElementHistoriqueDAO implements BaseDAO<ElementHistorique> {
 	}
 
 	public List<ElementHistorique> search(Criteres<ElementHistorique> myCriteres) {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		CriteriaQuery<ElementHistorique> q = cb.createQuery(ElementHistorique.class);
+		Root<ElementHistorique> root = q.from(ElementHistorique.class);
+		
+		
+		if(myCriteres == null || myCriteres.getCount() == 0){
+			q.select(root);
+		}else{
+			List<Predicate> predicates = myCriteres.getCriteres(cb, root);
+			q.select(root).where(predicates.toArray(new Predicate[]{}));
+		}
+
+		TypedQuery<ElementHistorique> query = em.createQuery(q);
+		
+		List<ElementHistorique> results = query.getResultList();
+		
+		return results;
 	}
 
 }

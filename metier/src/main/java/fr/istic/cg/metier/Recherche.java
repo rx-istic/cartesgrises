@@ -29,15 +29,17 @@ public class Recherche {
 	BaseDAO<CarteGrise> cDAO ;
 	
 
-	public List<CarteGrise> chercherCG(Criteres<CarteGrise> criteres){//CriteresCarteGrise criteres){
-		//return cgDAO.search(criteres);
-		return null;
+	public List<CarteGrise> chercherCarteGrise(Criteres<CarteGrise> criteres){
+		return cDAO.search(criteres);
 	}
 	
-	/*
-	public List<Proprietaire> chercherProprietaire(Criteres criteres){
-		return new ArrayList<Proprietaire>();
-	}*/
+	public List<ElementHistorique> chercherElementHistorique(Criteres<ElementHistorique> criteres){
+		return eDAO.search(criteres);
+	}
+
+	public List<Particulier> chercherParticulier(Criteres<Particulier> criteres){
+		return pDAO.search(criteres);
+	}
 	
 	public List<Societe> chercherSociete(Criteres<Societe> criteres){
 		return sDAO.search(criteres);
