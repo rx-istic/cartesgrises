@@ -7,3 +7,6 @@ java -cp /tmp/maven_repository/org/hsqldb/hsqldb/2.3.2/hsqldb-2.3.2.jar  org.hsq
 java -cp /tmp/maven_repository/org/hsqldb/hsqldb/2.3.2/hsqldb-2.3.2.jar  org.hsqldb.util.DatabaseManager
 
 
+Stephane was here
+
+
