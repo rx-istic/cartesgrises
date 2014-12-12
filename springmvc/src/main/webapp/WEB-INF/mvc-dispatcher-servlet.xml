@@ -80,6 +80,7 @@
 	</bean>
 	
 	<mvc:resources mapping="/resources/**" location="/resources/basictheme/" />
+	<mvc:resources mapping="/favicon.ico" location="/resources/basictheme/favicon.ico" />
 	<mvc:annotation-driven />
 
 </beans>

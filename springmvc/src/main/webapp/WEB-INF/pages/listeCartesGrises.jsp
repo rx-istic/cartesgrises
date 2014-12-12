@@ -6,12 +6,13 @@
 
 <html>
 <head>
+	<%@include file="head.jsp" %>
     <title>Liste des cartes grises</title>
 </head>
 <body>
-
+<%@include file="navigation.jsp" %>
 <h2>Cartes Grises</h2>
-<%-- <form:form method="POST" action="/listCartesGrises" modelAttribute="cartegrisemodel"> --%>
+
    <table>
     <tr>
         <th>NumSerie</th>

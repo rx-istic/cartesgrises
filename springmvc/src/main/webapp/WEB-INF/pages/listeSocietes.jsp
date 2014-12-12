@@ -4,15 +4,15 @@
 
 <html>
 <head>
-	<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+	<%@include file="head.jsp" %>
     <title>Liste des Soci&eacute;tes</title>
 </head>
 <body>
 
 <h2>Soci&eacute;tes</h2>
 
-<a href="/">Retour</a>
-
+<%@include file="navigation.jsp" %>
+<div class="displaytable">
    <table>
     <tr>
         <th>ID</th>
@@ -36,6 +36,7 @@
 	        <td>${ste.getNumSiret()}</td>
 	    </tr>
  	</c:forEach>
-</table>  
+</table>
+</div>  
 </body>
 </html>

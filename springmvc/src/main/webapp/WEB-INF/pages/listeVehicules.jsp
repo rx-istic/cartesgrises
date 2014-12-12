@@ -4,14 +4,15 @@
 
 <html>
 <head>
-	<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+	<%@include file="head.jsp" %>
     <title>Liste des vehicules</title>
 </head>
 <body>
 
 <h2>Vehicules</h2>
-<a href="/">Retour</a>
+<%@include file="navigation.jsp" %>
 
+<div class="displaytable">
    <table>
     <tr>
         <th>NumSerie</th>
@@ -60,5 +61,6 @@
 		
  	</c:forEach>
 </table>  
+</div>
 </body>
 </html>
