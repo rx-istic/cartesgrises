@@ -9,13 +9,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.springframework.stereotype.Component;
+import javax.transaction.Transactional;
 
 import fr.istic.cg.persistance.CarteGrise;
-import fr.istic.cg.persistance.CarteGrise;
 
-@Component
+
 public class CarteGriseDAO implements BaseDAO<CarteGrise>{
 	
 	@PersistenceContext
@@ -26,30 +24,36 @@ public class CarteGriseDAO implements BaseDAO<CarteGrise>{
 		return mySelf;
 	}
 	
+	
 	public CarteGriseDAO(){
 		mySelf = this;
 	}
 
+	@Transactional
 	public boolean save(CarteGrise cg) {
 		em.persist(cg);
 		return true;
 	}
 
+	@Transactional
 	public boolean update(CarteGrise cg) {
 		em.merge(cg);
 		return true;
 	}
 
+	@Transactional
 	public CarteGrise get(String identifiant) {
 		
 		return em.find(CarteGrise.class, identifiant );
 	}
 
+	@Transactional
 	public boolean delete(CarteGrise cg) {
 		em.remove(em.find(CarteGrise.class, cg.getImmatriculation()));
 		return true;
 	}
 
+	@Transactional
 	public List<CarteGrise> search(Criteres<CarteGrise> myCriteres) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 

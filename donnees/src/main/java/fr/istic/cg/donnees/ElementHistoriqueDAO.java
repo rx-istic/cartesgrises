@@ -12,7 +12,6 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import fr.istic.cg.persistance.ElementHistorique;
-import fr.istic.cg.persistance.ElementHistorique;
 
 public class ElementHistoriqueDAO implements BaseDAO<ElementHistorique> {
 	

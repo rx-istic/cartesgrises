@@ -52,6 +52,7 @@ public class ParticulierDAO implements  BaseDAO<Particulier> {
 		return true;
 	}
 
+	@Transactional
 	public List<Particulier> search(Criteres<Particulier> myCriteres) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 
