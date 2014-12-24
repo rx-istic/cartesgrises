@@ -86,6 +86,22 @@ public class SocieteController {
 		return myModel;
 	}
 	
+	@RequestMapping(value = "/cherchersociete", method = RequestMethod.POST )
+	public ModelAndView recherchersociete(@ModelAttribute("societemodel")Societe societe, ModelMap model) {
+		if(firstRun){
+			firstRun = false;
+			populate();	
+		}
+		ModelAndView myModel = new ModelAndView("redirect:/cherchersociete");
+		if(societe.hasAddresse())
+			myModel.addObject("adr", societe.getAdresse());
+		if(societe.hasRaisonSociale())
+			myModel.addObject("rs", societe.getRaisonSociale());
+		if(societe.hasNumSiret())
+			myModel.addObject("srt", societe.getNumSiret());
+		return myModel;
+	}
+	
 	@RequestMapping(value = "/creersociete", method = RequestMethod.GET )
 	   public ModelAndView formulaireVehicule(ModelMap model) {
 		 ModelAndView myModel = new ModelAndView("formSociete");//nom prochain JSP
