@@ -38,4 +38,12 @@ public abstract class Proprietaire {
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+	
+	public boolean hasId(){
+		return id != 0;
+	}
+	
+	public boolean hasAddresse(){
+		return adresse != null && adresse.length() > 0;
+	}
 }

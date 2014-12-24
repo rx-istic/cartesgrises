@@ -5,21 +5,27 @@
 <html>
 <head>
 	<%@include file="head.jsp" %>
-    <title>Liste des vehicules</title>
+    <title>Liste des v&eacute;hicules</title>
 </head>
 <body>
 
-<h2>Vehicules</h2>
+
 <%@include file="navigation.jsp" %>
 
+<div class="dark-matter">
+	<h1>Rechercher des v&eacute;hicules</h1>
+	<%@include file="tableVehicule.jsp" %>
+</div>
+
+<br/>
 <div class="displaytable">
    <table>
     <tr>
-        <th>NumSerie</th>
+        <th>Num&eacute;ro de S&eacute;rie</th>
    
         <th>Marque</th>
    
-        <th>Modele</th>
+        <th>Mod&egrave;le</th>
    
         <th>Type</th>
     </tr>
@@ -43,7 +49,7 @@
 					<form:hidden path="modele"   value="${vcl.getModele()}"/>
 					<form:hidden path="type"     value="${vcl.getType()}"/>
 		        	
-		        	<input type="submit" value="Editer"/>
+		        	<input type="submit" value="&Eacute;diter" class="button"/>
 		        </td>
 		        </form:form>
 		        
@@ -53,7 +59,7 @@
 					<form:hidden path="marque"   value="${vcl.getMarque()}"/>
 					<form:hidden path="modele"   value="${vcl.getModele()}"/>
 					<form:hidden path="type"     value="${vcl.getType()}"/>
-		        	<input type="submit" value="Supprimer"/>
+		        	<input type="submit" value="Supprimer" class="button"/>
 		        </td>
 		        </form:form>
 		        
@@ -62,5 +68,9 @@
  	</c:forEach>
 </table>  
 </div>
+
+<br/>
+
+
 </body>
 </html>

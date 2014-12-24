@@ -44,5 +44,14 @@ public class CarteGrise {
 	public void addHistorique(ElementHistorique eh) {
 		historique.add(eh);
 	}
-
+	
+	public boolean hasImmatriculation(){
+		return immatriculation != null && immatriculation.length() > 0;
+	}
+	public boolean hasVehicule(){
+		return refVehicule != null;
+	}
+	public boolean hasHistorique(){
+		return historique != null;
+	}
 }

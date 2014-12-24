@@ -26,5 +26,13 @@ public class Particulier extends Proprietaire {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+	
+	public boolean hasNom(){
+		return nom != null && nom.length() > 0;
+	}
+	
+	public boolean hasPrenom(){
+		return prenom != null && prenom.length() > 0;
+	}
 
 }

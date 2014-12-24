@@ -1,9 +1,10 @@
 <nav>
 <ul>
     <li><a href="/">Index</a>
-    <li><a href="/cherchervehicules">Chercher Vehicule</a>
-    <li><a href="/creervehicule">Creer vehicule</a>
-    <li><a href="/cherchersociete">Chercher Societe</a>
+    <li><a href="/cherchervehicules">Chercher V&eacute;hicule</a>
+    <li><a href="/creervehicule">Cr&eacute;er V&eacute;hicule</a>
+    <li><a href="/cherchersociete">Chercher Soci&eacute;t&eacute;</a>
+    <li><a href="/creersociete">Cr&eacute;er Soci&eacute;t&eacute;</a>
 </ul>
 </nav>
  

@@ -41,4 +41,20 @@ public class Vehicule {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public boolean hasNumSerie(){
+		return this.numSerie != null && this.numSerie.length() > 0;
+	}
+	
+	public boolean hasMarque(){
+		return this.marque != null && this.marque.length() > 0;
+	}
+	
+	public boolean hasModele(){
+		return this.modele != null && this.modele.length() > 0;
+	}
+	
+	public boolean hasType(){
+		return this.type != null && this.type.length() > 0;
+	}
 }

@@ -3,14 +3,15 @@
 <html>
 <head>
 	<%@include file="head.jsp" %>
-    <title>Ajouter v&eacute;hicule</title>
+    <title>Ajouter Soci&eacute;t&eacute;</title>
 </head>
 <body>
 <%@include file="navigation.jsp" %>
 
 <div class="dark-matter">
-	<h1>Cr&eacute;er un nouveau v&eacute;hicule</h1>
-	<%@include file="tableVehicule.jsp" %>
+	<h1>Cr&eacute;er une nouvelle Soci&eacute;t&eacute;</h1>
+	<%@include file="tableSociete.jsp" %>
 </div>
+
 </body>
 </html>

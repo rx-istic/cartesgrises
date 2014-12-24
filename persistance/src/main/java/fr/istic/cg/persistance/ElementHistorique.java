@@ -51,4 +51,19 @@ public class ElementHistorique {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public boolean hasId(){
+		return id != 0;
+	}
+	
+	public boolean hasProprietaire(){
+		return refProrietaire != null;
+	}
+	
+	public boolean hasDateDebut(){
+		return dateDebut != null;
+	}
+	public boolean hasDateFin(){
+		return dateFin != null;
+	}
 }

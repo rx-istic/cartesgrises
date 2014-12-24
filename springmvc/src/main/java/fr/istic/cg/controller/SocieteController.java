@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fr.istic.cg.donnees.CriteresSociete;
 import fr.istic.cg.metier.Creation;
+import fr.istic.cg.metier.Modification;
 import fr.istic.cg.metier.Recherche;
+import fr.istic.cg.metier.Suppression;
 import fr.istic.cg.persistance.Societe;
+import fr.istic.cg.persistance.Vehicule;
 
 @Controller
 public class SocieteController {
@@ -24,7 +28,13 @@ public class SocieteController {
 	Creation c;
 	
 	@Autowired
+	Modification modif;
+	
+	@Autowired
 	Recherche rec;
+	
+	@Autowired
+	Suppression suppr;
 	
 	boolean firstRun = true;
 	
@@ -71,26 +81,57 @@ public class SocieteController {
 		
 		List<Societe> mySociete = rec.chercherSociete(crtSte);
 		ModelAndView myModel = new ModelAndView("listeSocietes");
-		
+		model.addAttribute("societemodel",new Societe());
 		myModel.addObject("societes", mySociete);
 		return myModel;
 	}
-	/*
-	 @RequestMapping(value = "/formulairevehicule", method = RequestMethod.GET )
+	
+	@RequestMapping(value = "/creersociete", method = RequestMethod.GET )
 	   public ModelAndView formulaireVehicule(ModelMap model) {
-		 ModelAndView myModel = new ModelAndView("ajouterVehicule");//nom prochain JSP
-		   model.addAttribute("vehiculemodel",new Vehicule());
+		 ModelAndView myModel = new ModelAndView("formSociete");//nom prochain JSP
+		   model.addAttribute("societemodel",new Societe());
+		   myModel.addObject("action", "/docreersociete");
 	      return myModel;
 	   }
 
-	@RequestMapping(value = "/ajoutervehicule", method = RequestMethod.POST)
-	public ModelAndView addVehicule(@ModelAttribute("vehiculemodel")Vehicule vehicule, 
+	@RequestMapping(value = "/docreersociete", method = RequestMethod.POST)
+	public ModelAndView addSociete(@ModelAttribute("societemodel")Societe societe, 
 			ModelMap model) {
 
-		c.vehicule(vehicule);//on enregistre le véhicule
+		c.societe(societe);//on enregistre la societe
 		
-		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
-		myModel.addObject("ns", vehicule.getNumSerie());
+		ModelAndView myModel = new ModelAndView("redirect:/cherchersociete");
+		//myModel.addObject("ns", vehicule.getNumSerie());
 		return myModel;
-	}*/
+	}
+	
+	@RequestMapping(value = "/editersociete", method = RequestMethod.POST )
+	   public ModelAndView editSociete(@ModelAttribute("societemodel")Societe societe,
+			   ModelMap model) {
+		 ModelAndView myModel = new ModelAndView("formSociete");//nom prochain JSP
+		   model.addAttribute("societemodel",societe);
+		   myModel.addObject("action", "/doeditsociete");
+	      return myModel;
+	   }
+	
+	@RequestMapping(value = "/doeditsociete", method = RequestMethod.POST)
+	public ModelAndView majSociete(@ModelAttribute("societemodel")Societe societe, 
+			ModelMap model) {
+
+		modif.societe(societe);//on met à jour la societe
+		
+		ModelAndView myModel = new ModelAndView("redirect:/cherchersociete");
+		return myModel;
+	}
+	
+	@RequestMapping(value = "/supprimersociete", method = RequestMethod.POST)
+	public ModelAndView delVehicule(@ModelAttribute("societemodel")Societe societe, 
+			ModelMap model) {
+
+		suppr.societe(societe);//on supprime la societe
+		
+		ModelAndView myModel = new ModelAndView("redirect:/cherchersociete");
+		return myModel;
+	}
+
 }

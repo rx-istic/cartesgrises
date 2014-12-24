@@ -30,5 +30,12 @@ public class Societe extends Proprietaire {
 		this.numSiret = numSiret;
 	}
 
+	public boolean hasRaisonSociale(){
+		return raisonSociale != null && raisonSociale.length() > 0;
+	}
+	
+	public boolean hasNumSiret(){
+		return numSiret != null && numSiret.length() > 0;
+	}
 
 }
