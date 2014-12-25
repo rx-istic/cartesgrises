@@ -24,7 +24,15 @@ public abstract class Proprietaire {
 	@Basic
 	private String adresse;
 	
+	protected int typeProprietaire;
 	
+	static public int TYPE_INVALID=0;
+	static public int TYPE_PARTICULIER=1;
+	static public int TYPE_SOCIETE=2;
+	
+	public Proprietaire(){
+		typeProprietaire = TYPE_INVALID;
+	}
 	
 	public int getId() {
 		return id;
@@ -45,5 +53,9 @@ public abstract class Proprietaire {
 	
 	public boolean hasAddresse(){
 		return adresse != null && adresse.length() > 0;
+	}
+	
+	public int getTypeProprietaire(){
+		return typeProprietaire;
 	}
 }

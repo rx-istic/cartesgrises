@@ -27,9 +27,14 @@
 
 	<c:forEach var="cgs" items="${cartesGrises}">
 		
-		    <tr>
-		        <td>${cgs.getImmatriculation()}</td>
-		   
+		    <tr onclick="document.location = '/cgdetails?cg=${cgs.getImmatriculation()}';">
+		    	
+		        <td>
+		        	
+		        		${cgs.getImmatriculation()}
+		        	
+		        </td>
+		   		
 		        <form:form method="POST" action="/editercg" modelAttribute="cgmodel">
 		        <td class="buttoncell">
 		        	<form:hidden path="immatriculation" value="${cgs.getImmatriculation()}"/>

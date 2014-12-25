@@ -56,10 +56,11 @@ public class SocieteController {
     	
 
 	}
-	//TODO
+	
 	
 	@RequestMapping(value = "/cherchersociete", method = RequestMethod.GET )
-	public ModelAndView vehicule(	@RequestParam(value="adr", required=false) String adr, 
+	public ModelAndView vehicule(	@RequestParam(value="pid", required=false) String pid,
+									@RequestParam(value="adr", required=false) String adr, 
 									@RequestParam(value="rs", required=false) String rs,
 									@RequestParam(value="srt", required=false) String srt,
 									ModelMap model) {
@@ -69,7 +70,10 @@ public class SocieteController {
 		}
 
 		CriteresSociete crtSte = new CriteresSociete();
-		if(adr != null){
+		if(pid != null){
+			crtSte.addCritere(CriteresSociete.ID_CLE, pid);
+		}
+		else if(adr != null){
 			crtSte.addCritere(CriteresSociete.ADRESSE_CLE, adr);
 		}
 		else if(rs != null){

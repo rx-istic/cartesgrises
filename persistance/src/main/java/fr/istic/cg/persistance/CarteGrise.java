@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,7 +18,7 @@ public class CarteGrise {
 	@OneToOne
 	private Vehicule refVehicule;
 	
-	@OneToMany
+	@OneToMany(fetch= FetchType.EAGER) 
 	private Collection<ElementHistorique> historique;
 
 	public CarteGrise(){

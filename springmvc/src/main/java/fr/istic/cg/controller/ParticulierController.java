@@ -55,7 +55,8 @@ public class ParticulierController {
 
 	
 	@RequestMapping(value = "/chercherparticulier", method = RequestMethod.GET )
-	public ModelAndView particulier(@RequestParam(value="adr", required=false) String adr, 
+	public ModelAndView particulier(@RequestParam(value="pid", required=false) String pid,
+									@RequestParam(value="adr", required=false) String adr, 
 									@RequestParam(value="nm", required=false) String nom,
 									@RequestParam(value="pnom", required=false) String pnom,
 									ModelMap model) {
@@ -65,6 +66,9 @@ public class ParticulierController {
 		}
 
 		CriteresParticulier crtPcl = new CriteresParticulier();
+		if(pid != null){
+			crtPcl.addCritere(CriteresParticulier.ID_CLE, pid);
+		}
 		if(adr != null){
 			crtPcl.addCritere(CriteresParticulier.ADRESSE_CLE, adr);
 		}

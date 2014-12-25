@@ -11,6 +11,11 @@ public class Particulier extends Proprietaire {
 	@Basic
 	private String prenom;
 	
+	public Particulier(){
+		super();
+		typeProprietaire = TYPE_PARTICULIER;
+	}
+	
 	public String getNom() {
 		return nom;
 	}

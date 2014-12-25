@@ -14,6 +14,11 @@ public class Societe extends Proprietaire {
 	@Column(unique = true)
 	private String numSiret;
 	
+	public Societe(){
+		super();
+		typeProprietaire = TYPE_SOCIETE;
+	}
+	
 	public String getRaisonSociale() {
 		return raisonSociale;
 	}
