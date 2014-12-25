@@ -42,7 +42,13 @@
         <td>${vehicule.getType()}</td>
     </tr>
 </table>
+</div>
 
+<br/>
+<button class="button">Modifier V&eacute;hicule</button>
+
+
+<div class="displaytable">
 <h2>Historique</h2>
 <table>
     <tr>
@@ -75,5 +81,6 @@
     </c:forEach>
 </table>
 </div>
+
 </body>
 </html>

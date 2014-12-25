@@ -39,11 +39,11 @@ public class ParticulierController {
 	
 	@Transactional
 	void populate(){
-		Particulier batman = new Particulier();
-		batman.setAdresse("Gotham");
-		batman.setNom("Wayne");
-		batman.setPrenom("Bruce");
-		c.particulier(batman);
+		Particulier cloud = new Particulier();
+		cloud.setAdresse("Kalm");
+		cloud.setNom("Strife");
+		cloud.setPrenom("Cloud");
+		c.particulier(cloud);
 
 		Particulier superman = new Particulier();
 		superman.setAdresse("Metropolis");

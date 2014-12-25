@@ -1,6 +1,6 @@
 <nav>
 <ul>
-    <li><a href="/">Index</a>
+    <li><a href="/">Accueil</a>
     <li><a href="/cherchervehicules">Chercher V&eacute;hicule</a>
     <li><a href="/creervehicule">Cr&eacute;er V&eacute;hicule</a>
     <li><a href="/cherchersociete">Chercher Soci&eacute;t&eacute;</a>
