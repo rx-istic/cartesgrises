@@ -45,8 +45,15 @@
 </div>
 
 <br/>
-<button class="button">Modifier V&eacute;hicule</button>
+<form:form method="GET" action="/cgeditvehicule">
+	<input id="cg" name="cg" value="${carteGrise.getImmatriculation()}" type="hidden"/>
+	<input type="submit" value="Modifier V&eacute;hicule" class="button"/>
+</form:form>
 
+<form:form method="POST" action="/cgremovevehicule">
+	<input id="cg" name="cg" value="${carteGrise.getImmatriculation()}" type="hidden"/>
+	<input type="submit" value="Supprimer Association V&eacute;hicule" class="button"/>
+</form:form>
 
 <div class="displaytable">
 <h2>Historique</h2>

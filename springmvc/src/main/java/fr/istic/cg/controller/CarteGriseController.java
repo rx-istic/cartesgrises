@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import fr.istic.cg.donnees.CriteresCarteGrise;
+import fr.istic.cg.donnees.CriteresVehicule;
 import fr.istic.cg.metier.Creation;
 import fr.istic.cg.metier.Modification;
 import fr.istic.cg.metier.Recherche;
@@ -44,13 +45,13 @@ public class CarteGriseController {
 
 	@Transactional
 	void populate(){
-		
+
 		Societe shinra = new Societe();
 		shinra.setAdresse("Midgard");
 		shinra.setNumSiret("9898");
 		shinra.setRaisonSociale("Shinra Corp");
 		c.societe(shinra);
-		
+
 		Particulier batman = new Particulier();
 		batman.setAdresse("Gotham");
 		batman.setNom("Wayne");
@@ -78,7 +79,7 @@ public class CarteGriseController {
 		v2.setModele("Rouge");
 
 		c.vehicule(v2);
-		
+
 		Vehicule v3 = new Vehicule();
 		v3.setNumSerie("5555");
 		v3.setMarque("Shinra Motors");
@@ -102,7 +103,7 @@ public class CarteGriseController {
 		elh2.setRefProrietaire(ouioui);
 
 		c.elementHistorique(elh2);
-		
+
 		ElementHistorique elh3 = new ElementHistorique();
 		elh3.setDateDebut(new Date(1888-1900, 5, 10));
 		Date now3 = new Date(System.currentTimeMillis());
@@ -125,7 +126,7 @@ public class CarteGriseController {
 		cg2.addHistorique(elh2);
 
 		c.carteGrise(cg2);
-		
+
 		CarteGrise cg3 = new CarteGrise();
 		cg3.setImmatriculation("7777");
 		cg3.setRefVehicule(v3);
@@ -244,6 +245,158 @@ public class CarteGriseController {
 			myModel.addObject("historique",carteGrise.getHistorique());
 		}
 
+		return myModel;
+	}
+
+	@RequestMapping(value = "/cgeditvehicule", method = {RequestMethod.GET} )
+	public ModelAndView editVehiculeCarteGrise(
+			@RequestParam(value="cg", required=false) String im,
+			@RequestParam(value="ns", required=false) String ns, 
+			@RequestParam(value="mq", required=false) String mq,
+			@RequestParam(value="md", required=false) String md,
+			@RequestParam(value="tp", required=false) String tp,
+			@ModelAttribute("vehiculemodel")Vehicule vehicule,
+			ModelMap model) {
+
+		if(im == null){
+			System.out.println("***CGEDIT : Pas de parametre im!");
+			return new ModelAndView("redirect:/cherchercg");
+		}
+
+		CriteresCarteGrise crtCG = new CriteresCarteGrise();
+		if(im != null){
+			crtCG.addCritere(CriteresCarteGrise.IMMATRICULATION_CLE, im);
+		}
+		List<CarteGrise> myCG = rec.chercherCarteGrise(crtCG);
+
+		ModelAndView myModel = null;
+		if(myCG.size() > 1){
+			System.out.println("***CGEDIT : Cartes grises multiples!");
+			myModel = new ModelAndView("redirect:/cherchercg");
+			if(im != null && im.length() > 0){
+				myModel.addObject("im", im);
+			}
+		}else if (myCG.size() == 0){
+			System.out.println("***CGEDIT : Pas de carte grise correspondant a im!");
+			myModel = new ModelAndView("redirect:/cherchercg");
+		}else{
+			//recherche de vehicules
+			CriteresVehicule crtVcl = new CriteresVehicule();
+			if(ns != null){
+				crtVcl.addCritere(CriteresVehicule.NUMSERIE_CLE, ns);
+			}
+			else if(mq != null){
+				crtVcl.addCritere(CriteresVehicule.MARQUE_CLE, mq);
+			}
+			else if(md != null){
+				crtVcl.addCritere(CriteresVehicule.MODELE_CLE, md);
+			}
+			else if(tp != null){
+				crtVcl.addCritere(CriteresVehicule.TYPE_CLE, tp);
+			}
+
+			List<Vehicule> myVehicules = rec.chercherVehicule(crtVcl);
+			
+			myModel = new ModelAndView("cgDetailsVehicule");
+			CarteGrise carteGrise = myCG.get(0);
+			myModel.addObject("carteGrise", carteGrise);
+			myModel.addObject("vehicules", myVehicules);
+			myModel.addObject("action", "/cgsearchvehicule");
+			model.addAttribute("vehiculemodel",new Vehicule());
+
+		}
+
+		return myModel;
+	}
+
+	@RequestMapping(value = "/cgsearchvehicule", method = {RequestMethod.POST} )
+	public ModelAndView searchVehiculeCarteGrise(@RequestParam(value="cg", required=false) String im,
+			@ModelAttribute("vehiculemodel")Vehicule vehicule,
+			ModelMap model) {
+
+		if(im == null){
+			return new ModelAndView("redirect:/cherchercg");
+		}
+
+		ModelAndView myModel = new ModelAndView("redirect:/cgeditvehicule");
+		myModel.addObject("cg", im);
+		
+		if(vehicule.hasNumSerie())
+			myModel.addObject("ns", vehicule.getNumSerie());
+		if(vehicule.hasMarque())
+			myModel.addObject("mq", vehicule.getMarque());
+		if(vehicule.hasModele())
+			myModel.addObject("md", vehicule.getModele());
+		if(vehicule.hasType())
+			myModel.addObject("tp", vehicule.getType());
+		return myModel;
+	}
+	
+	
+	@RequestMapping(value = "/cgassociervehicule", method = {RequestMethod.POST} )
+	public ModelAndView linkVehiculeCarteGrise(@RequestParam(value="cg", required=false) String im,
+			@RequestParam(value="vcl", required=false) String vcl,
+			ModelMap model) {
+
+		if(im == null){
+			return new ModelAndView("redirect:/cherchercg");
+		}
+		
+		ModelAndView myModel = new ModelAndView("redirect:/cgdetails");
+		myModel.addObject("cg", im);
+		
+		if(vcl == null){
+			return myModel;
+		}
+
+		CriteresCarteGrise crtCG = new CriteresCarteGrise();
+		if(im != null){
+			crtCG.addCritere(CriteresCarteGrise.IMMATRICULATION_CLE, im);
+		}
+		List<CarteGrise> myCG = rec.chercherCarteGrise(crtCG);
+		if(myCG.size() == 1){
+			CarteGrise carteGrise = myCG.get(0);
+			
+			CriteresVehicule crtVcl = new CriteresVehicule();
+			if(vcl != null){
+				crtVcl.addCritere(CriteresVehicule.NUMSERIE_CLE, vcl);
+			}
+
+			List<Vehicule> myVehicules = rec.chercherVehicule(crtVcl);
+			if(myVehicules.size() == 1){//on peut associer le vehicule
+				carteGrise.setRefVehicule(myVehicules.get(0));
+				modif.carteGrise(carteGrise);//mise a jour de la carte grise
+			}
+		}
+		
+		
+		return myModel;
+	}
+	
+	@RequestMapping(value = "/cgremovevehicule", method = {RequestMethod.POST} )
+	public ModelAndView unlinkVehiculeCarteGrise(@RequestParam(value="cg", required=false) String im,
+			ModelMap model) {
+
+		if(im == null){
+			//System.out.println("***CGEDIT : Pas de parametre im!");
+			return new ModelAndView("redirect:/cherchercg");
+		}
+
+		CriteresCarteGrise crtCG = new CriteresCarteGrise();
+		if(im != null){
+			crtCG.addCritere(CriteresCarteGrise.IMMATRICULATION_CLE, im);
+		}
+		List<CarteGrise> myCG = rec.chercherCarteGrise(crtCG);
+		if(myCG.size() == 1){
+			CarteGrise carteGrise = myCG.get(0);
+			
+			carteGrise.setRefVehicule(null);
+			modif.carteGrise(carteGrise);//mise a jour de la carte grise
+			
+		}
+		
+		ModelAndView myModel = new ModelAndView("redirect:/cgdetails");
+		myModel.addObject("cg", im);
 		return myModel;
 	}
 }
