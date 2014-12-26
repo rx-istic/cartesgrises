@@ -4,7 +4,7 @@
 <div class="inputform">
 <form:form method="POST" action="${action}" modelAttribute="vehiculemodel">
 	<c:if test="${not empty carteGrise}">
-		<input id="cg" name="cg" value="${carteGrise.getImmatriculation()}" type="hidden"/>
+		<input id="im" name="im" value="${carteGrise.getImmatriculation()}" type="hidden"/>
 	</c:if>	
    <table>
     <tr>

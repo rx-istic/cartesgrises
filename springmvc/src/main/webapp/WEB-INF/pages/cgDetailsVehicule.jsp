@@ -57,7 +57,7 @@
 		
  	</c:forEach>
 	</table>
-	<input id="cg" name="cg" value="${carteGrise.getImmatriculation()}" type="hidden"/>  
+	<input id="im" name="im" value="${carteGrise.getImmatriculation()}" type="hidden"/>  
 	<input type="submit" value="Associer" class="button"/>
 </form:form>
 </div>
