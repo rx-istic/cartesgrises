@@ -21,6 +21,8 @@
 
 <div class="displaytable">
 <h2>V&eacute;hicule associ&eacute;</h2>
+
+<c:if test="${not empty vehicule}">
 <table>
     <tr>
         <th>Num&eacute;ro de S&eacute;rie</th>
@@ -42,6 +44,10 @@
         <td>${vehicule.getType()}</td>
     </tr>
 </table>
+</c:if>
+<c:if test="${empty vehicule}">
+	Aucun V&eacute;hicule associ&eacute;
+</c:if>
 </div>
 
 <br/>
@@ -57,6 +63,8 @@
 
 <div class="displaytable">
 <h2>Historique</h2>
+
+<c:if test="${not empty historique}">
 <table>
     <tr>
         <th>Date d&eacute;but</th>
@@ -87,7 +95,18 @@
 	    </tr>
     </c:forEach>
 </table>
+</c:if>
+
+<c:if test="${empty historique}">
+	Aucun Propri&eacute;taire associ&eacute;
+</c:if>
 </div>
+
+<br/>
+<form:form method="GET" action="/cgaddproprietaire">
+	<input id="im" name="im" value="${carteGrise.getImmatriculation()}" type="hidden"/>
+	<input type="submit" value="Ajouter un propri&eacute;taire" class="button"/>
+</form:form>
 
 </body>
 </html>

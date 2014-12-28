@@ -27,6 +27,8 @@
 
 <br/>
 <div class="displaytable">
+
+<c:if test="${not empty vehicules}">
 <form:form method="POST" action="/cgassociervehicule">
    <table>
     <tr>
@@ -52,7 +54,6 @@
 		        <td>${vcl.getModele()}</td>
 		    
 		        <td>${vcl.getType()}</td>
-		        
 		    </tr>
 		
  	</c:forEach>
@@ -60,6 +61,11 @@
 	<input id="im" name="im" value="${carteGrise.getImmatriculation()}" type="hidden"/>  
 	<input type="submit" value="Associer" class="button"/>
 </form:form>
+</c:if>
+
+<c:if test="${empty vehicules}">
+	Aucun V&eacute;hicule disponible !
+</c:if>
 </div>
 
 
