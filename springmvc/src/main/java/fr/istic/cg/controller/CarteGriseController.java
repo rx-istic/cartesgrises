@@ -1,6 +1,8 @@
 package fr.istic.cg.controller;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -148,11 +150,48 @@ public class CarteGriseController {
 		}
 
 		List<CarteGrise> myCG = searchCartesGrises(im);
+		
+		HashMap<String, String> mypropietaires = new HashMap<String, String>();
+		for(CarteGrise cg : myCG){
+			mypropietaires.put(cg.getImmatriculation(), getLastProprietaire(cg.getHistorique()));
+		}
+		
 		ModelAndView myModel = new ModelAndView("listeCartesGrises");
 		model.addAttribute("cgmodel",new CarteGrise());
 		myModel.addObject("cartesGrises", myCG);
+		model.addAttribute("proprietaires", mypropietaires);
 		myModel.addObject("action", "/cherchercg");
 		return myModel;
+	}
+
+	private String getLastProprietaire(
+			Collection<ElementHistorique> historique) {
+		ElementHistorique elret = null;
+		for(ElementHistorique el : historique){
+			if(elret == null){
+				elret = el;
+			}else
+			{
+				if(elret.getDateFin().before(el.getDateFin())){
+					elret = el;
+				}
+			}
+			
+		}
+		
+		String retstr = "";
+		
+		if(elret != null && elret.getRefProrietaire() != null){
+			if(elret.getRefProrietaire().getTypeProprietaire() == Proprietaire.TYPE_PARTICULIER){
+				Particulier p = (Particulier) elret.getRefProrietaire();
+				retstr = p.getNom()+ " " + p.getPrenom();
+			}else if(elret.getRefProrietaire().getTypeProprietaire() == Proprietaire.TYPE_SOCIETE){
+				Societe s = (Societe) elret.getRefProrietaire();
+				retstr = s.getRaisonSociale() + " " + s.getNumSiret();
+			}
+		}
+		
+		return retstr;
 	}
 
 	@RequestMapping(value = "/cherchercg", method = RequestMethod.POST )
@@ -218,6 +257,7 @@ public class CarteGriseController {
 
 	@RequestMapping(value = "/cgdetails", method = RequestMethod.GET )
 	public ModelAndView detailsCarteGrise(@RequestParam(value="im", required=false) String im,
+			@ModelAttribute("elementmodel")ElementHistorique ehmodel,
 			ModelMap model) {
 
 
@@ -238,6 +278,8 @@ public class CarteGriseController {
 			myModel.addObject("vehicule",carteGrise.getRefVehicule());
 
 			myModel.addObject("historique",carteGrise.getHistorique());
+			
+			model.addAttribute("elementmodel", ehmodel);
 		}
 
 		return myModel;
@@ -494,5 +536,31 @@ public class CarteGriseController {
 		}
 		
 		return rec.chercherSociete(crtSte);
+	}
+	
+	@RequestMapping(value = "/supprimerelementhistorique", method = RequestMethod.POST)
+	public ModelAndView delElementHistorique(@ModelAttribute("elementmodel")ElementHistorique ehmodel,
+			@RequestParam(value="im", required=false) String im,
+			ModelMap model) {
+
+		List<CarteGrise> myCG = searchCartesGrises(im);
+		if(myCG.size() == 1){
+			CarteGrise carteGrise = myCG.get(0);
+			
+			for(ElementHistorique elh : carteGrise.getHistorique()){
+				if(elh.getId() == ehmodel.getId()){
+					carteGrise.getHistorique().remove(elh);
+					modif.carteGrise(carteGrise);
+					suppr.elementHistorique(elh);
+					break;
+				}
+			}
+		}
+		
+		
+
+		ModelAndView myModel = new ModelAndView("redirect:/cgdetails");
+		myModel.addObject("im", im);
+		return myModel;
 	}
 }

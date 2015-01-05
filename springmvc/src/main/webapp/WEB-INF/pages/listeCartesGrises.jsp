@@ -22,28 +22,53 @@
    <table>
     <tr>
         <th>Immatriculation</th>
+        <th>Marque</th>
+        <th>Mod&egrave;le</th>
+        <th>Type</th>
+        <th>Propri&eacute;taire Actuel</th>
     </tr>
  
 
 	<c:forEach var="cgs" items="${cartesGrises}">
 		
-		    <tr onclick="document.location = '/cgdetails?im=${cgs.getImmatriculation()}';">
+		    <tr style="cursor:pointer;" onclick="document.location = '/cgdetails?im=${cgs.getImmatriculation()}';">
 		    	
 		        <td>
-		        	
-		        		${cgs.getImmatriculation()}
-		        	
+		        	${cgs.getImmatriculation()}
 		        </td>
 		   		
-		   		<!--
-		        <form:form method="POST" action="/editercg" modelAttribute="cgmodel">
-		        <td class="buttoncell">
-		        	<form:hidden path="immatriculation" value="${cgs.getImmatriculation()}"/>
-					
-		        	<input type="submit" value="&Eacute;diter" class="button"/>
-		        </td>
-		        </form:form>
-		        -->
+		   		<c:if test="${not empty cgs.getRefVehicule()}">		
+			   		<td>
+			        	${cgs.getRefVehicule().getMarque()}
+			        </td>
+			   		
+			   		<td>
+			        	${cgs.getRefVehicule().getModele()}
+			        </td>
+			        
+			        <td>
+			        	${cgs.getRefVehicule().getType()}
+			        </td>
+		   		</c:if>
+		   		
+		   		<c:if test="${empty cgs.getRefVehicule()}">		
+			   		<td>
+			        	
+			        </td>
+			   		
+			   		<td>
+			        	
+			        </td>
+			        
+			        <td>
+			        	
+			        </td>
+		   		</c:if>
+		   		
+		   		<td>
+		   				<c:set var="idimmat" value="${cgs.getImmatriculation()}"/>
+			        	<c:out value="${proprietaires[idimmat]}" />
+			     </td>
 		        
 		        <form:form method="POST" action="/supprimercg" modelAttribute="cgmodel">
 		        <td class="buttoncell">

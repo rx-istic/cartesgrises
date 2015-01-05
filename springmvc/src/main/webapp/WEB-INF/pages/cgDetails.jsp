@@ -75,14 +75,26 @@
     </tr>
  
 	 <c:forEach var="eh" items="${historique}">
-	    <tr>
+	 
+	 		<c:if test="${not empty eh.getRefProrietaire()}">
+	   			<c:if test="${eh.getRefProrietaire().getTypeProprietaire()==1}">
+	    			<tr style="cursor:pointer;" onclick="document.location = '/chercherparticulier?pid=${eh.getRefProrietaire().getId()}';">
+	    		</c:if>
+	    		<c:if test="${eh.getRefProrietaire().getTypeProprietaire()==2}">
+	    			<tr style="cursor:pointer;" onclick="document.location = '/chercherparticulier?pid=${eh.getRefProrietaire().getId()}';">
+	    		</c:if>
+	    	</c:if>
+			<c:if test="${empty eh.getRefProrietaire()}">
+				<tr>
+			</c:if>
+	    			
 	        <td>${eh.getDateDebut()}</td>
 	   
 	        <td>${eh.getDateFin()}</td>
 	        
 	   		<c:if test="${not empty eh.getRefProrietaire()}">
 	   			<c:if test="${eh.getRefProrietaire().getTypeProprietaire()==1}">
-	        		<td onclick="document.location = '/chercherparticulier?pid=${eh.getRefProrietaire().getId()}';">${eh.getRefProrietaire().getNom()} ${eh.getRefProrietaire().getPrenom()}</td>
+	        		<td>${eh.getRefProrietaire().getNom()} ${eh.getRefProrietaire().getPrenom()}</td>
 	        	</c:if>
 	        	<c:if test="${eh.getRefProrietaire().getTypeProprietaire()==2}">
 	        		<td onclick="document.location = '/cherchersociete?pid=${eh.getRefProrietaire().getId()}';">${eh.getRefProrietaire().getRaisonSociale()} ${eh.getRefProrietaire().getNumSiret()}</td>
@@ -90,8 +102,15 @@
 			</c:if>
 			<c:if test="${empty eh.getRefProrietaire()}">
 	        	<td>Pas de propri&eacute;taire</td>
-			</c:if>		    
-	        
+			</c:if>
+					    
+	        <form:form method="POST" action="/supprimerelementhistorique" modelAttribute="elementmodel">
+		        <td class="buttoncell">
+			        <form:hidden path="id" value="${eh.getId()}"/>
+			        <input id="im" name="im" value="${carteGrise.getImmatriculation()}" type="hidden"/>
+		        	<input type="submit" value="Supprimer" class="button"/>
+		        </td>
+		    </form:form>
 	    </tr>
     </c:forEach>
 </table>

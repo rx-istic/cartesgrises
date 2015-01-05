@@ -63,7 +63,8 @@ public class VehiculeController {
 	}
 
 	@RequestMapping(value = "/cherchervehicules", method = RequestMethod.GET )
-	public ModelAndView vehicule(	@RequestParam(value="ns", required=false) String ns, 
+	public ModelAndView vehicule(	@ModelAttribute("vehiculemodel")Vehicule vehicule,
+			@RequestParam(value="ns", required=false) String ns, 
 			@RequestParam(value="mq", required=false) String mq,
 			@RequestParam(value="md", required=false) String md,
 			@RequestParam(value="tp", required=false) String tp,
@@ -88,8 +89,9 @@ public class VehiculeController {
 		}
 
 		List<Vehicule> myVehicules = rec.chercherVehicule(crtVcl);
+		
 		ModelAndView myModel = new ModelAndView("listeVehicules");
-		model.addAttribute("vehiculemodel",new Vehicule());
+		model.addAttribute("vehiculemodel",vehicule);
 		myModel.addObject("vehicules", myVehicules);
 		myModel.addObject("action", "/cherchervehicules");
 		return myModel;
@@ -110,6 +112,9 @@ public class VehiculeController {
 			myModel.addObject("md", vehicule.getModele());
 		if(vehicule.hasType())
 			myModel.addObject("tp", vehicule.getType());
+		
+		//model.addAttribute("vehiculemodel",vehicule);
+		
 		return myModel;
 	}
 

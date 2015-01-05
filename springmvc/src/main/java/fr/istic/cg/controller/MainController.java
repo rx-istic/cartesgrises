@@ -14,7 +14,7 @@ public class MainController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET )
 	public ModelAndView vehicule(ModelMap model) {
-		
+		/*
 		List<String> mylinks = new ArrayList<String>();
 		
 		mylinks.add("/cherchervehicules");
@@ -23,10 +23,9 @@ public class MainController {
 		
 		mylinks.add("/cherchersociete");
 		
+		*/
 		
 		ModelAndView myModel = new ModelAndView("index");
-		myModel.addObject("links", mylinks);
-		
 		return myModel;
 	}
 }
