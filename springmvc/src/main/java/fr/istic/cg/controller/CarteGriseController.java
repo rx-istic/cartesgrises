@@ -142,6 +142,10 @@ public class CarteGriseController {
 
 	@RequestMapping(value = "/cherchercg", method = RequestMethod.GET )
 	public ModelAndView cg(	@RequestParam(value="im", required=false) String im, 
+			@RequestParam(value="ns", required=false) String ns, 
+			@RequestParam(value="mq", required=false) String mq,
+			@RequestParam(value="md", required=false) String md,
+			@RequestParam(value="tp", required=false) String tp,
 			ModelMap model) {
 
 		if(firstRun){
@@ -149,7 +153,7 @@ public class CarteGriseController {
 			populate();	
 		}
 
-		List<CarteGrise> myCG = searchCartesGrises(im);
+		List<CarteGrise> myCG = searchCartesGrises(im, ns, mq, md, tp);
 		
 		HashMap<String, String> mypropietaires = new HashMap<String, String>();
 		for(CarteGrise cg : myCG){
@@ -491,10 +495,15 @@ public class CarteGriseController {
 	}
 
 	private List<CarteGrise> searchCartesGrises(String immatriculation){
+		return searchCartesGrises(immatriculation, null, null, null, null);
+	}
+	
+	private List<CarteGrise> searchCartesGrises(String immatriculation, String ns, String mq, String md, String tp){
 		CriteresCarteGrise crtCG = new CriteresCarteGrise();
 		if(immatriculation != null){
 			crtCG.addCritere(CriteresCarteGrise.IMMATRICULATION_CLE, immatriculation);
 		}
+		//TODO exclure les cartes grises dont les voitures ne répondent pas aux criteres de recherche
 		return rec.chercherCarteGrise(crtCG);
 	}
 
