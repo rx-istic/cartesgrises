@@ -14,7 +14,7 @@
 
 <div class="dark-matter">
 	<h1>Rechercher des Cartes Grises</h1>
-	<%@include file="tableCarteGrise.jsp" %>
+	<%@include file="tableCarteGriseVehicule.jsp" %>
 </div>
 
 <br/>

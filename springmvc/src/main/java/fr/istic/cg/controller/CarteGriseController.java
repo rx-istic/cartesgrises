@@ -1,5 +1,6 @@
 package fr.istic.cg.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -199,14 +200,32 @@ public class CarteGriseController {
 	}
 
 	@RequestMapping(value = "/cherchercg", method = RequestMethod.POST )
-	public ModelAndView recherchercg(@ModelAttribute("cgmodel")CarteGrise cg, ModelMap model) {
+	public ModelAndView recherchercg(@ModelAttribute("cgmodel")CarteGrise cg, 
+			@RequestParam(value="ns", required=false) String ns, 
+			@RequestParam(value="mq", required=false) String mq,
+			@RequestParam(value="md", required=false) String md,
+			@RequestParam(value="tp", required=false) String tp,
+			ModelMap model) {
 		if(firstRun){
 			firstRun = false;
 			populate();	
 		}
 		ModelAndView myModel = new ModelAndView("redirect:/cherchercg");
-		if(cg.hasImmatriculation())
+		if(cg.hasImmatriculation()){
 			myModel.addObject("im", cg.getImmatriculation());
+		}
+		if(ns != null && ns.length() > 0){
+			myModel.addObject("ns", ns);
+		}
+		if(mq != null && mq.length() > 0){
+			myModel.addObject("mq", mq);
+		}
+		if(md != null && md.length() > 0){
+			myModel.addObject("md", md);
+		}
+		if(tp != null && tp.length() > 0){
+			myModel.addObject("tp", tp);
+		}
 		return myModel;
 	}
 
@@ -503,8 +522,47 @@ public class CarteGriseController {
 		if(immatriculation != null){
 			crtCG.addCritere(CriteresCarteGrise.IMMATRICULATION_CLE, immatriculation);
 		}
-		//TODO exclure les cartes grises dont les voitures ne répondent pas aux criteres de recherche
-		return rec.chercherCarteGrise(crtCG);
+		
+		//on exclu les cartes grises dont les voitures ne répondent pas aux criteres de recherche
+		List<CarteGrise> ret = rec.chercherCarteGrise(crtCG);
+		ArrayList<CarteGrise> todel = new ArrayList<CarteGrise>();
+		
+		for(CarteGrise c : ret){
+			Vehicule v = c.getRefVehicule();
+			if(ns != null && ns.length() > 0){
+				if(!v.getNumSerie().equals(ns)){
+					todel.add(c);
+					continue;
+				}
+			}
+			
+			if(mq != null && mq.length() > 0){
+				if(!v.getMarque().equals(mq)){
+					todel.add(c);
+					continue;
+				}
+			}
+			
+			if(md != null && md.length() > 0){
+				if(!v.getModele().equals(md)){
+					todel.add(c);
+					continue;
+				}
+			}
+			
+			if(tp != null && tp.length() > 0){
+				if(!v.getType().equals(tp)){
+					todel.add(c);
+					continue;
+				}
+			}
+		}
+		
+		for(CarteGrise c : todel){
+			ret.remove(c);
+		}
+		
+		return ret;
 	}
 
 	private List<Vehicule> searchVehicules(String numSerie, String marque, String modele, String type){
