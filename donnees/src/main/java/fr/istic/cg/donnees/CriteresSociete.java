@@ -3,6 +3,7 @@ package fr.istic.cg.donnees;
 
 
 public class CriteresSociete extends Criteres{
+	/*critères valides pour la recherche*/
 	public static String ID_CLE = "id";
 	public static String ADRESSE_CLE = "adresse";
 	public static String RAISON_SOCIALE_CLE = "raisonSociale";

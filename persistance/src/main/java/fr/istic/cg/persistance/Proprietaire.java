@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+/*Tous les descendants de proprietaire sont stockés dans la meme table, une colonne 'discriminante' (TYPE_P) est ajoutée*/
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(

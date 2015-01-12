@@ -3,6 +3,8 @@ package fr.istic.cg.donnees;
 
 
 public class CriteresCarteGrise extends Criteres{
+	
+	/*critères valides pour la recherche*/
 	public static String IMMATRICULATION_CLE = "immatriculation";
 	public static String REF_VEHICULE_CLE = "refVehicule";
 

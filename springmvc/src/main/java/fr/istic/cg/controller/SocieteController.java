@@ -19,7 +19,6 @@ import fr.istic.cg.metier.Modification;
 import fr.istic.cg.metier.Recherche;
 import fr.istic.cg.metier.Suppression;
 import fr.istic.cg.persistance.Societe;
-import fr.istic.cg.persistance.Vehicule;
 
 @Controller
 public class SocieteController {
@@ -38,6 +37,7 @@ public class SocieteController {
 	
 	boolean firstRun = true;
 	
+	/*Permet de peupler la base avec des données de test*/
 	@Transactional
 	void populate(){
 		Societe aviva = new Societe();
@@ -64,6 +64,8 @@ public class SocieteController {
 									@RequestParam(value="rs", required=false) String rs,
 									@RequestParam(value="srt", required=false) String srt,
 									ModelMap model) {
+		
+		/*On peuple la base lors de la première exécution seulement*/
 		if(firstRun){
 			firstRun = false;
 			populate();	

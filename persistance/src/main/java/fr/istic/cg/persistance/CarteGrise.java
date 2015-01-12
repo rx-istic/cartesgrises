@@ -18,6 +18,7 @@ public class CarteGrise {
 	@OneToOne
 	private Vehicule refVehicule;
 	
+	/*Requis pour pouvoir précharger (et donc accéder) aux éléments plus simplement*/
 	@OneToMany(fetch= FetchType.EAGER) 
 	private Collection<ElementHistorique> historique;
 

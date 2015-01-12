@@ -8,6 +8,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+/*Critères de recherche generiques pour chaque type de donnée :
+ * La liste de critères (criteres) est contitué d'un ensemble clés/valeurs, les cles correspondant aux colonnes de la table de données considérée.
+ * 
+ * Seules les clés appartenant à l'ensemble goodCle sont acceptées.
+ * (Pour éviter les requètes sur des valeurs incohérentes)
+ * 
+ * 
+ * */
+
 public abstract class Criteres<T> {
 
 

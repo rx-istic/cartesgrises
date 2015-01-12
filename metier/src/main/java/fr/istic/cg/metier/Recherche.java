@@ -12,6 +12,7 @@ import fr.istic.cg.persistance.Particulier;
 import fr.istic.cg.persistance.Societe;
 import fr.istic.cg.persistance.Vehicule;
 
+/*Classe metier responsable des recherches*/
 public class Recherche {
 	@Autowired
 	BaseDAO<Vehicule> vDAO ;

@@ -2,7 +2,7 @@ package fr.istic.cg.donnees;
 
 import java.util.List;
 
-
+/*Interface commune à tous les DAO du projet*/
 public interface  BaseDAO<T> {
 	
 	public boolean save(T cg);

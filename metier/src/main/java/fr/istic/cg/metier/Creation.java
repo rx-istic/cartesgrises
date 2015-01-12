@@ -9,7 +9,8 @@ import fr.istic.cg.persistance.Particulier;
 import fr.istic.cg.persistance.Societe;
 import fr.istic.cg.persistance.Vehicule;
 
-public class Creation {//OK
+/*Classe metier responsable des sauvegardes*/
+public class Creation {
 	
 	@Autowired
 	BaseDAO<Vehicule> vDAO ;

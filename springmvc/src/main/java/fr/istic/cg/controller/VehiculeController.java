@@ -37,6 +37,7 @@ public class VehiculeController {
 
 	boolean firstRun = true;
 
+	/*Permet de peupler la base avec des données de test*/
 	@Transactional
 	void populate(){
 		Vehicule v = new Vehicule();
@@ -69,6 +70,8 @@ public class VehiculeController {
 			@RequestParam(value="md", required=false) String md,
 			@RequestParam(value="tp", required=false) String tp,
 			ModelMap model) {
+		
+		/*On peuple la base lors de la première exécution seulement*/
 		if(firstRun){
 			firstRun = false;
 			populate();	
@@ -90,10 +93,10 @@ public class VehiculeController {
 
 		List<Vehicule> myVehicules = rec.chercherVehicule(crtVcl);
 		
-		ModelAndView myModel = new ModelAndView("listeVehicules");
+		ModelAndView myModel = new ModelAndView("listeVehicules");//nom du jsp a appeler
 		model.addAttribute("vehiculemodel",vehicule);
 		myModel.addObject("vehicules", myVehicules);
-		myModel.addObject("action", "/cherchervehicules");
+		myModel.addObject("action", "/cherchervehicules");//action du formulaire inclu
 		return myModel;
 	}
 
@@ -103,7 +106,7 @@ public class VehiculeController {
 			firstRun = false;
 			populate();	
 		}
-		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
+		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");//redirection pour éviter le rejeu en cas de rafraichissement
 		if(vehicule.hasNumSerie())
 			myModel.addObject("ns", vehicule.getNumSerie());
 		if(vehicule.hasMarque())
@@ -133,7 +136,6 @@ public class VehiculeController {
 		c.vehicule(vehicule);//on enregistre le véhicule
 
 		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
-		//myModel.addObject("ns", vehicule.getNumSerie());
 		return myModel;
 	}
 
@@ -153,7 +155,6 @@ public class VehiculeController {
 		modif.vehicule(vehicule);//on met à jour le véhicule
 
 		ModelAndView myModel = new ModelAndView("redirect:/cherchervehicules");
-		//myModel.addObject("ns", vehicule.getNumSerie());
 		return myModel;
 	}
 

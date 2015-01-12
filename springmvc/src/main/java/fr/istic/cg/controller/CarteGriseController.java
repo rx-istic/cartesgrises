@@ -49,6 +49,7 @@ public class CarteGriseController {
 
 	boolean firstRun = true;
 
+	/*Permet de peupler la base avec des données de test*/
 	@Transactional
 	void populate(){
 
@@ -149,6 +150,7 @@ public class CarteGriseController {
 			@RequestParam(value="tp", required=false) String tp,
 			ModelMap model) {
 
+		/*On peuple la base lors de la première exécution seulement*/
 		if(firstRun){
 			firstRun = false;
 			populate();	
@@ -169,8 +171,9 @@ public class CarteGriseController {
 		return myModel;
 	}
 
-	private String getLastProprietaire(
-			Collection<ElementHistorique> historique) {
+	/*Fonction utilitaire : récupère le proprietaire le plus récent de l'historique*/
+	private String getLastProprietaire(Collection<ElementHistorique> historique) {
+		
 		ElementHistorique elret = null;
 		for(ElementHistorique el : historique){
 			if(elret == null){
@@ -199,6 +202,7 @@ public class CarteGriseController {
 		return retstr;
 	}
 
+	/*Déclenché par la soumission du formulaire de recherche*/
 	@RequestMapping(value = "/cherchercg", method = RequestMethod.POST )
 	public ModelAndView recherchercg(@ModelAttribute("cgmodel")CarteGrise cg, 
 			@RequestParam(value="ns", required=false) String ns, 
@@ -229,6 +233,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Retourne le formulaire de création*/
 	@RequestMapping(value = "/creercg", method = RequestMethod.GET )
 	public ModelAndView formulaireCG(ModelMap model) {
 		ModelAndView myModel = new ModelAndView("formCG");//nom prochain JSP
@@ -237,6 +242,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Déclenche la création de la carte grise (soumission du formulaire de création)*/
 	@RequestMapping(value = "/docreercg", method = RequestMethod.POST)
 	public ModelAndView addCG(@ModelAttribute("cgmodel")CarteGrise cg, 
 			ModelMap model) {
@@ -247,6 +253,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*retourne le formulaire d'édition*/
 	@RequestMapping(value = "/editercg", method = RequestMethod.POST )
 	public ModelAndView editCG(@ModelAttribute("cgmodel")CarteGrise cg,
 			ModelMap model) {
@@ -256,6 +263,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Valide les modifications apportées (à la soumission du formulaire d'édition)*/
 	@RequestMapping(value = "/doeditcg", method = RequestMethod.POST)
 	public ModelAndView majVehicule(@ModelAttribute("cgmodel")CarteGrise cg, 
 			ModelMap model) {
@@ -267,6 +275,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*supprime une carte grise*/
 	@RequestMapping(value = "/supprimercg", method = RequestMethod.POST)
 	public ModelAndView delCG(@ModelAttribute("cgmodel")CarteGrise cg, 
 			ModelMap model) {
@@ -278,6 +287,7 @@ public class CarteGriseController {
 	}
 
 
+	/*Affiche les détails d'une carte grise en particulier*/
 	@RequestMapping(value = "/cgdetails", method = RequestMethod.GET )
 	public ModelAndView detailsCarteGrise(@RequestParam(value="im", required=false) String im,
 			@ModelAttribute("elementmodel")ElementHistorique ehmodel,
@@ -308,6 +318,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Formulaire permettant de choisir un véhicule à associer à la carte grise courante*/
 	@RequestMapping(value = "/cgeditvehicule", method = {RequestMethod.GET} )
 	public ModelAndView editVehiculeCarteGrise(
 			@RequestParam(value="im", required=false) String im,
@@ -349,6 +360,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Recherche d'un véhicule depuis la vue d'association d'un véhicule*/
 	@RequestMapping(value = "/cgsearchvehicule", method = {RequestMethod.POST} )
 	public ModelAndView searchVehiculeCarteGrise(@RequestParam(value="im", required=false) String im,
 			@ModelAttribute("vehiculemodel")Vehicule vehicule,
@@ -373,6 +385,7 @@ public class CarteGriseController {
 	}
 
 
+	/*Effectue l'association d'un véhicule à une carte grise*/
 	@RequestMapping(value = "/cgassociervehicule", method = {RequestMethod.POST} )
 	public ModelAndView linkVehiculeCarteGrise(@RequestParam(value="im", required=false) String im,
 			@RequestParam(value="vcl", required=false) String vcl,
@@ -406,6 +419,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Supprime l'association d'un véhicule et d'une carte grise*/
 	@RequestMapping(value = "/cgremovevehicule", method = {RequestMethod.POST} )
 	public ModelAndView unlinkVehiculeCarteGrise(@RequestParam(value="im", required=false) String im,
 			ModelMap model) {
@@ -429,6 +443,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Formulaire de choix d'un proprio pour une carte grise (element historique)*/
 	@RequestMapping(value = "/cgaddproprietaire", method = {RequestMethod.GET} )
 	public ModelAndView addProprietaireCarteGrise(@RequestParam(value="im", required=false) String im,
 			ModelMap model) {
@@ -454,6 +469,7 @@ public class CarteGriseController {
 		return myModel;
 	}
 	
+	/*Ajout d'un proprio pour une carte grise (element historique)*/
 	@RequestMapping(value = "/cgdoaddproprietaire", method = {RequestMethod.POST} )
 	public ModelAndView doAddProprietaireCarteGrise(@RequestParam(value="im", required=false) String im,
 			@RequestParam(value="dDebut", required=false) String dDebut,
@@ -513,11 +529,13 @@ public class CarteGriseController {
 		return myModel;
 	}
 
+	/*Fonction utilitaire : renvoie toutes les cartes grises existantes*/
 	private List<CarteGrise> searchCartesGrises(String immatriculation){
 		return searchCartesGrises(immatriculation, null, null, null, null);
 	}
 	
-	private List<CarteGrise> searchCartesGrises(String immatriculation, String ns, String mq, String md, String tp){
+	/*Fonction utilitaire : renvoie les cartes grises correspondant aux critères*/
+	private List<CarteGrise> searchCartesGrises(String immatriculation, String numSerie, String marque, String modele, String type){
 		CriteresCarteGrise crtCG = new CriteresCarteGrise();
 		if(immatriculation != null){
 			crtCG.addCritere(CriteresCarteGrise.IMMATRICULATION_CLE, immatriculation);
@@ -529,29 +547,29 @@ public class CarteGriseController {
 		
 		for(CarteGrise c : ret){
 			Vehicule v = c.getRefVehicule();
-			if(ns != null && ns.length() > 0){
-				if(!v.getNumSerie().equals(ns)){
+			if(numSerie != null && numSerie.length() > 0){
+				if(!v.getNumSerie().equals(numSerie)){
 					todel.add(c);
 					continue;
 				}
 			}
 			
-			if(mq != null && mq.length() > 0){
-				if(!v.getMarque().equals(mq)){
+			if(marque != null && marque.length() > 0){
+				if(!v.getMarque().equals(marque)){
 					todel.add(c);
 					continue;
 				}
 			}
 			
-			if(md != null && md.length() > 0){
-				if(!v.getModele().equals(md)){
+			if(modele != null && modele.length() > 0){
+				if(!v.getModele().equals(modele)){
 					todel.add(c);
 					continue;
 				}
 			}
 			
-			if(tp != null && tp.length() > 0){
-				if(!v.getType().equals(tp)){
+			if(type != null && type.length() > 0){
+				if(!v.getType().equals(type)){
 					todel.add(c);
 					continue;
 				}
@@ -565,6 +583,7 @@ public class CarteGriseController {
 		return ret;
 	}
 
+	/*Fonction utilitaire : renvoie les vehicules correspondants aux critères*/
 	private List<Vehicule> searchVehicules(String numSerie, String marque, String modele, String type){
 		CriteresVehicule crtVcl = new CriteresVehicule();
 		if(numSerie != null){
@@ -583,10 +602,12 @@ public class CarteGriseController {
 		return rec.chercherVehicule(crtVcl);
 	}
 
+	/*Fonction utilitaire : renvoie tous les véhicules*/
 	private List<Vehicule> searchVehicules(String numSerie){
 		return searchVehicules(numSerie, null, null, null);
 	}
 	
+	/*Fonction utilitaire : renvoie les particuliers correspondant au pid donné (tous si pid=null)*/
 	private List<Particulier> searchParticuliers(String pid){
 		CriteresParticulier crtPcl = new CriteresParticulier();
 		if(pid != null){
@@ -596,6 +617,7 @@ public class CarteGriseController {
 		return rec.chercherParticulier(crtPcl);
 	}
 	
+	/*Fonction utilitaire : renvoie les societes correspondant au pid donné (tous si pid=null)*/
 	private List<Societe> searchSocietes(String pid){
 		CriteresSociete crtSte = new CriteresSociete();
 		if(pid != null){
@@ -605,6 +627,7 @@ public class CarteGriseController {
 		return rec.chercherSociete(crtSte);
 	}
 	
+	/*Supprime un element historique d ela carte grise*/
 	@RequestMapping(value = "/supprimerelementhistorique", method = RequestMethod.POST)
 	public ModelAndView delElementHistorique(@ModelAttribute("elementmodel")ElementHistorique ehmodel,
 			@RequestParam(value="im", required=false) String im,
@@ -622,10 +645,7 @@ public class CarteGriseController {
 					break;
 				}
 			}
-		}
-		
-		
-
+		}	
 		ModelAndView myModel = new ModelAndView("redirect:/cgdetails");
 		myModel.addObject("im", im);
 		return myModel;

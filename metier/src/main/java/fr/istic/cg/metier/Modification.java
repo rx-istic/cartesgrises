@@ -9,6 +9,7 @@ import fr.istic.cg.persistance.Particulier;
 import fr.istic.cg.persistance.Societe;
 import fr.istic.cg.persistance.Vehicule;
 
+/*Classe metier responsable des modifications*/
 public class Modification {
 	
 	@Autowired

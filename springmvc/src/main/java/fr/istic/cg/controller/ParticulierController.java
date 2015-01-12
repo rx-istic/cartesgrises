@@ -37,6 +37,7 @@ public class ParticulierController {
 	
 	boolean firstRun = true;
 	
+	/*Permet de peupler la base avec des données de test*/
 	@Transactional
 	void populate(){
 		Particulier cloud = new Particulier();
@@ -60,6 +61,8 @@ public class ParticulierController {
 									@RequestParam(value="nm", required=false) String nom,
 									@RequestParam(value="pnom", required=false) String pnom,
 									ModelMap model) {
+		
+		/*On peuple la base lors de la première exécution seulement*/
 		if(firstRun){
 			firstRun = false;
 			populate();	

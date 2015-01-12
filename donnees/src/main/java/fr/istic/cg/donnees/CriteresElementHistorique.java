@@ -3,6 +3,7 @@ package fr.istic.cg.donnees;
 
 
 public class CriteresElementHistorique extends Criteres{
+	/*critères valides pour la recherche*/
 	public static String ID_CLE = "id";
 	public static String REFPROPRIETAIRE_CLE = "refProrietaire";
 	public static String DATE_DEBUT_CLE = "dateDebut";
